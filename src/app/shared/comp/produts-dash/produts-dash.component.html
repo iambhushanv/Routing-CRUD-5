@@ -6,6 +6,7 @@
     <ul class="list-group" *ngIf="getProductsArr.length > 0; else noProducts">
         <li class="list-group-item" *ngFor="let product of getProductsArr; trackBy : trackByFun"
         [routerLink]="[product.pid]"
+        routerLinkActive="active"
         [queryParams]="{cr : product.canReturn}"
         >
             {{product.pname}}
@@ -25,6 +26,6 @@
     </ng-template>
 </div>
 <div class="col-md-8">
-    Product Details
+   <router-outlet></router-outlet>
 </div>
 </div>

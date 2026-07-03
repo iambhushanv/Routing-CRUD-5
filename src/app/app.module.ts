@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,6 +18,8 @@ import { PageNotFoundComponent } from './shared/comp/page-not-found/page-not-fou
 import { ProductFormComponent } from './shared/comp/produts-dash/product-form/product-form.component';
 import { ProductDetailsComponent } from './shared/comp/produts-dash/product-details/product-details.component';
 import { GetConfirmComponent } from './shared/comp/produts-dash/product-details/get-confirm/get-confirm.component';
+import { UserDetailComponent } from './shared/comp/users-dash/user-detail/user-detail.component';
+import { UserFormComponent } from './shared/comp/users-dash/user-form/user-form.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,9 @@ import { GetConfirmComponent } from './shared/comp/produts-dash/product-details/
     PageNotFoundComponent,
     ProductFormComponent,
     ProductDetailsComponent,
-    GetConfirmComponent
+    GetConfirmComponent,
+    UserDetailComponent,
+    UserFormComponent,
   ],
   imports: [
     BrowserModule,
