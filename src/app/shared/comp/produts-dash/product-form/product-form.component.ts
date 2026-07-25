@@ -58,53 +58,57 @@ export class ProductFormComponent implements OnInit {
     }
   }
 
-    patchProductData(){
+  patchProductData() {
     this.productId = this._route.snapshot.paramMap.get('id')!
-    if(this.productId){
+    if (this.productId) {
       this.isInEditMode = true
       this._productService.fetchProductById(this.productId)
-      .subscribe({
-        next : res => {
-          this.productObj = res
-          this.productForm.patchValue(res)
-        },
-        error : err => {
-          console.log(err);         
-        }
-      })
+        .subscribe({
+          next: res => {
+            this.productObj = res
+            this.productForm.patchValue(res)
+          },
+          error: err => {
+            console.log(err);
+          }
+        })
     }
   }
 
-  canReturnHandler(){
+  canReturnHandler() {
     this._route.queryParams.subscribe(res => {
-      if(res['cr'] == 0){
+      if (res['cr'] == 0) {
         this.productForm.disable()
         this.disableUpdateBtn = true
-      }else{
-         this.productForm.enable()
+      } else {
+        this.productForm.enable()
         this.disableUpdateBtn = false
       }
     })
   }
 
-   onUpdate(){
-    if(this.productForm.invalid){
+  onUpdate() {
+    if (this.productForm.invalid) {
       this.productForm.markAllAsTouched()
-  }else{
-    let updatedObj: Iproduct = {...this.productForm.value, pid : this.productObj.pid}
-    this._productService.onUpdate(updatedObj)
-    .subscribe({
-      next: res => {
-        this._snackBar.openSnackBar(res.msg)
-        this.isInEditMode = false
-        this._router.navigate(['products'])
-      },
-      error : err => {
-        this._snackBar.openSnackBar(err.msg)
-      }
-    })
-  }
+    } else {
+      let updatedObj: Iproduct = { ...this.productForm.value, pid: this.productObj.pid }
+      this._productService.onUpdate(updatedObj)
+        .subscribe({
+          next: res => {
+            this._snackBar.openSnackBar(res.msg)
+            this.isInEditMode = false
+            this._router.navigate(['products', updatedObj.pid],
+              {
+                queryParams : {cr : updatedObj.canReturn}
+              }
+            )
+          },
+          error: err => {
+            this._snackBar.openSnackBar(err.msg)
+          }
+        })
+    }
 
-}
+  }
 
 }
